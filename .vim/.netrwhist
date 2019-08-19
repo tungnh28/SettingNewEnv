@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/bin'
+let g:netrw_dirhist_2='/media/tnguyen/9741407d-6883-476b-a0c9-52830f4b0005/home/sendoh/THOMAS/CyanogenMod/packages/apps/Phone'
+let g:netrw_dirhist_3='/media/tnguyen/9741407d-6883-476b-a0c9-52830f4b0005/home/sendoh/THOMAS/CyanogenMod/device/samsung/d2-common'
+let g:netrw_dirhist_4='/home/tnguyen/android-sdk-linux/platforms/android-4/templates'
+let g:netrw_dirhist_5='/Volumes/B2G/Projects/git-gecko-local/toolkit/components/url-classifier/tests/mochitest'
+let g:netrw_dirhist_6='/Volumes/B2G/Projects/git-gecko-local/toolkit/components/url-classifier'
+let g:netrw_dirhist_7='/Volumes/B2G/Projects/git-gecko-local/toolkit/components/url-classifier/tests'

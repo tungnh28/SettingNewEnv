@@ -1,0 +1,9 @@
+**** FIX ruby and command-t
+
+Need to make and install again
+cd ~/.vim/bundle/command-t/ruby/command-t/ext/command-t/
+rm Makefile
+/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ruby extconf.rb
+make
+sudo make install
+********************
