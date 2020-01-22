@@ -29,6 +29,7 @@ else
   Plugin 'roxma/vim-hug-neovim-rpc'
 endif
 
+Plugin 'dbakker/vim-projectroot'
 Plugin 'xolox/vim-misc'
 
 " The following are examples of different formats supported.
@@ -37,15 +38,8 @@ Plugin 'xolox/vim-misc'
 Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
-" install rvm https://usabilityetc.com/articles/ruby-on-mac-os-x-with-rvm/
-"   cd ~/.vim/bundle/command-t/ruby/command-t/ext/command-t
-" choose correct version
-" rvm use 2.3.7
-" ruby extconf.rb
-" make clean
-" make
-
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/fzf.vim'
 " git repos on your local machine (i.e. when working on your own plugin)
 " Plugin 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
@@ -72,6 +66,10 @@ Plugin 'honza/vim-snippets'
 
 " Default mappings are: <Leader>ds, <Leader>dS respectively.
 Plugin 'bergercookie/vim-debugstring'
+
+" Linter
+Plugin 'w0rp/ale'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -465,12 +463,9 @@ filetype plugin indent on    " required
         nmap <c-G> :TagbarToggle<CR>
      " }
 
-     " Command-t {
-        let g:CommandTMaxFiles=1000000
-        let g:CommandTMaxDepth=30
-        let g:CommandTFileScanner='find'
+     " fzf { Alternative, we can use ProjectRoot plugin
+     nnoremap <silent> <leader>t :<c-u> execute 'Files' projectroot#guess()<cr>
      " }
-
 " }
 
 " GUI Settings {
@@ -517,8 +512,6 @@ filetype plugin indent on    " required
 "" END copied from http://www.daskrachen.com/2011/12/how-to-make-tagbar-work-with-objective.html
 
 ""************************************ HELPER ****************************************
-
- " Functions {
 function! ShiftTab(direction)
      let tab_number = tabpagenr() 
      if a:direction == 0
@@ -567,17 +560,5 @@ function! InitializeDirectories()
     endfor
 endfunction
 call InitializeDirectories()
-
-function! NERDTreeInitAsNeeded()
-    redir => bufoutput
-    buffers!
-    redir END
-    let idx = stridx(bufoutput, "NERD_tree")
-    if idx > -1
-        NERDTreeMirror
-        NERDTreeFind
-        wincmd l
-    endif
-endfunction
 
 ""************************************************************************************

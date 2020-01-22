@@ -46,6 +46,10 @@ if [ -d ~/.mozbuild/moz-git-tools/git-bz-moz ]; then
     PATH=$PATH:~/.mozbuild/moz-git-tools/git-bz-moz
 fi
 
+if [ -d ~/.mozbuild/clang/bin ]; then
+    PATH=$PATH:~/.mozbuild/clang/bin
+fi
+
 function gitfixup {
   if [ $# -ge 1 ]
   then
@@ -76,10 +80,35 @@ function machclangformat {
   git reset HEAD~1;
 }
 
+function sccachebuild {
+  status=$(sccache --dist-status)
+  if [ -f ./mozconfig ]; then
+    echo "Found mozconfig file"
+    if grep -q "use_sccache_build:yes" ./mozconfig; then
+      if [[ $status == *"num_cpus"* ]]; then
+        echo "Building using sccache"
+        number_available=`echo $status | sed 's/.*num_cpus":\(.*\),.*/\1/'`
+        echo "Build with" $((number_available/2)) "cores"
+        ./mach build -j$((number_available/2))
+      else
+        echo "Seems we need to auth again. Please run sccache --dist-auth &&
+          sccache --stop-server"
+      fi
+    else
+      echo "No sccache in mozconfig file, run as default ./mach build -j8"
+      ./mach build -j8
+    fi
+  else
+    echo "No mozconfig file, run as default ./mach build -j8"
+    ./mach build -j8
+  fi
+}
+
 export PS1='\[\e[1;32m\][\u@\h \W]\$\[\e[0m\] '
 export EDITOR=vim
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
+alias sccachelog='SCCACHE_NO_DAEMON=1 RUST_LOG=sccache /Users/tnguyen/.cargo/bin/sccache --start-server'
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES;
 killall Finder /System/Library/CoreServices/Finder.app'
 alias hiddenFiles='defaults write com.apple.finder AppleShowAllFiles NO;
