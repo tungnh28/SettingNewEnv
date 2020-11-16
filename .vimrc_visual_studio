@@ -1,0 +1,73 @@
+" 1. Important configuration
+set backspace=indent,eol,start  " backspace for dummies
+set clipboard=unnamed 			"default clipboard register"
+set ignorecase 					"Ignore case"
+
+set incsearch                   " find as you type search
+set hlsearch                    " highlight search terms
+
+set nowrap                      " wrap long lines
+set autoindent                  " indent at the same level of the previous line
+"set matchpairs+=<:>                " match, to be used with %
+set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
+set ts=2 sts=2 et sw=2 tw=80
+set expandtab                   " tabs are spaces, not tabs
+
+
+
+
+" remap moving around key
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+" Wrapped lines goes down/up to next row, rather than next line in file.
+noremap q i
+noremap o <Nop>
+noremap - <Nop>
+" noremap 8 <Nop>
+noremap i gk
+noremap j h
+noremap k gj
+"copy paste
+noremap yow yiw
+noremap vow viw
+" Paste the second time
+xnoremap p "_dP
+"vnoremap p "0p
+
+noremap 8 0
+noremap 0 $
+noremap . <Nop>
+noremap <S-L> w
+noremap <S-J> b
+noremap <S-I> <C-B>zz
+noremap <S-K> <C-F>zz
+" Tabs
+noremap <C-S-i> gT
+noremap <C-S-k> gt
+noremap <C-PageUp> gT
+noremap <C-PageDown> gt
+
+
+nnoremap Y y$
+
+  " visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
+
+
+"clearing highlighted search
+nmap <silent> <leader>/ :nohlsearch<CR>
+nmap <silent> <C-S-7> :nohlsearch<CR>
+
+    " Adjust viewports to the same size
+map <Leader>= <C-w>=
+
+" Easier horizontal scrolling
+map zl zL
+map zh zH
+
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <c-space> ?
